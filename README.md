@@ -13,7 +13,7 @@ Interested? Visit \<Deployed Website\>
 Name             | Role
 ---------------- | -------------------
 Ryan Wang        | Frontend + Backend 
-Erica Nelson     | UI + CSS 
+Erica Nelson     | UI + CSS + Art
 ```
 
 ## Users:
@@ -24,14 +24,17 @@ Be sure to have python3 and pip3 installed.
 
 1. Clone this repository.
 ```
-$ git clone https://github.com/turtlelazy/stuy_inno_lab_website.git
-$ cd stuy_inno_lab_website
+$ git clone git@github.com:rwang2022/BU-match.git
+$ cd BU-match
 ```
 
 2. Create a new virtual environment.
 ```
 $ python3 -m venv env
+
+# depending on OS, choose one of the following
 $ . path/to/venv/bin/activate
+$ path\to\env\Scripts\activate
 ```
 
 3. Install project dependencies.

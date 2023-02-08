@@ -1,12 +1,15 @@
-from flask import Flask, render_template, redirect, url_for, request
-import smtplib
-from email.message import EmailMessage
+from flask import Flask, render_template, request
 import random
-from app_password import password
+import smtplib
 import ssl
 import smtplib
+from app_password import password
+from email.message import EmailMessage
 
 app = Flask(__name__)
+
+global email
+global random_code
 
 @app.route("/", methods=["GET","POST"])
 def index():
@@ -33,7 +36,7 @@ def login():
     if request.method == "GET":
         return "Huh?"
     if request.method == "POST":
-        code = request.form.get("code", default="")
+        code = int(request.form.get("code", default=""))
 
         if (code == random_code):
             return render_template("success_login.html")
