@@ -16,75 +16,73 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../CSS/styles.css" />
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-    body {
-      font: 16px Arial;
-    }
+      body {
+        font: 16px Arial;
+      }
 
-    /*the container must be positioned relative:*/
-    .autocomplete {
-      position: relative;
-      display: inline-block;
-    }
+      /*the container must be positioned relative:*/
+      .autocomplete {
+        position: relative;
+        display: inline-block;
+      }
 
-    input {
-      border: 1px solid transparent;
-      background-color: #f1f1f1;
-      padding: 10px;
-      font-size: 16px;
-    }
+      input {
+        border: 1px solid transparent;
+        background-color: #f1f1f1;
+        padding: 10px;
+        font-size: 16px;
+      }
 
-    input[type="text"] {
-      background-color: #f1f1f1;
-      width: 100%;
-    }
+      input[type="text"] {
+        background-color: #f1f1f1;
+        width: 100%;
+      }
 
-    input[type="submit"] {
-      background-color: DodgerBlue;
-      color: #fff;
-      cursor: pointer;
-    }
+      input[type="submit"] {
+        background-color: DodgerBlue;
+        color: #fff;
+        cursor: pointer;
+      }
 
-    .autocomplete-items {
-      position: absolute;
-      border: 1px solid #d4d4d4;
-      border-bottom: none;
-      border-top: none;
-      z-index: 99;
-      /*position the autocomplete items to be the same width as the container:*/
-      top: 100%;
-      left: 0;
-      right: 0;
-    }
+      .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top: 100%;
+        left: 0;
+        right: 0;
+      }
 
-    .autocomplete-items div {
-      padding: 10px;
-      cursor: pointer;
-      background-color: #fff;
-      border-bottom: 1px solid #d4d4d4;
-    }
+      .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+      }
 
-    /*when hovering an item:*/
-    .autocomplete-items div:hover {
-      background-color: #e9e9e9;
-    }
+      /*when hovering an item:*/
+      .autocomplete-items div:hover {
+        background-color: #e9e9e9;
+      }
 
-    /*when navigating through the items using the arrow keys:*/
-    .autocomplete-active {
-      background-color: DodgerBlue !important;
-      color: #ffffff;
-    }
-  </style>
+      /*when navigating through the items using the arrow keys:*/
+      .autocomplete-active {
+        background-color: DodgerBlue !important;
+        color: #ffffff;
+      }
+    </style>
   </head>
 
   <body>
     <h2>Choose your match</h2>
-
-    <p>Start typing their name:</p>
 
     <!--Make sure the form has the autocomplete function switched off:-->
     <form autocomplete="off" action="/action_page.php">
@@ -93,16 +91,23 @@
           id="myInput"
           type="text"
           name="myCountry"
-          placeholder="Country"
+          placeholder="Start typing their name"
         />
       </div>
       <input type="submit" />
     </form>
 
+    <p>NOTE: if they have a different name that they go by, then it will be in the form: </p>
+    <pre>
+      legalFirstName (DifferentName) legalLastName
+                          or
+      legalFirstName(DifferentName) legalLastName
+    </pre>
+
     <script>
       function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
+        the text field element and an array of possible autocompleted values:*/
         var currentFocus;
         /*execute a function when someone writes in the text field:*/
         inp.addEventListener("input", function (e) {
@@ -141,7 +146,7 @@
                 /*insert the value for the autocomplete text field:*/
                 inp.value = this.getElementsByTagName("input")[0].value;
                 /*close the list of autocompleted values,
-              (or any other open lists of autocompleted values:*/
+                    (or any other open lists of autocompleted values:*/
                 closeAllLists();
               });
               a.appendChild(b);
@@ -154,14 +159,14 @@
           if (x) x = x.getElementsByTagName("div");
           if (e.keyCode == 40) {
             /*If the arrow DOWN key is pressed,
-        increase the currentFocus variable:*/
+              increase the currentFocus variable:*/
             currentFocus++;
             /*and and make the current item more visible:*/
             addActive(x);
           } else if (e.keyCode == 38) {
             //up
             /*If the arrow UP key is pressed,
-        decrease the currentFocus variable:*/
+              decrease the currentFocus variable:*/
             currentFocus--;
             /*and and make the current item more visible:*/
             addActive(x);
@@ -192,7 +197,7 @@
         }
         function closeAllLists(elmnt) {
           /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
+          except the one passed as an argument:*/
           var x = document.getElementsByClassName("autocomplete-items");
           for (var i = 0; i < x.length; i++) {
             if (elmnt != x[i] && elmnt != inp) {
@@ -206,16 +211,12 @@
         });
       }
 
-      /*An array containing all the country names in the world:*/
-      var countries = [
-        "Ryan Wang",
-        "rwang122",
-        "Erika Nelson",
-        "enelson9"
-      ];
+      /*An array containing all the students and alums:*/
+      const students_alums = JSON.parse('{{ students_alums | tojson }}');
+      console.log(students_alums);
 
       /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-      autocomplete(document.getElementById("myInput"), countries);
+      autocomplete(document.getElementById("myInput"), students_alums);
     </script>
   </body>
 </html>

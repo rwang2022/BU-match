@@ -5,30 +5,41 @@ import ssl
 import smtplib
 from app_password import password
 from email.message import EmailMessage
+import pandas
 
 app = Flask(__name__)
 
 global email
-global random_code
+global students_alums
+
+# opening the CSV file
+with open('data/students_alums.csv', mode ='r') as file:
+  csvFile = pandas.read_csv(file)
+students_alums = csvFile.values.tolist()
+print(students_alums[0])
+for i in range(len(students_alums)):
+    students_alums[i] = f"{students_alums[i][1]}, {students_alums[i][2]}, {students_alums[i][3]}"
+print(students_alums[0])
 
 @app.route("/", methods=["GET","POST"])
 def index():
     return render_template("index.html")
 
 
-@app.route("/give_email", methods=["GET","POST"])
-def give_email():
+@app.route("/sending_code", methods=["GET","POST"])
+def sending_code():
     if request.method == "GET":
-        return render_template("give_email.html")
+        return render_template("sending_code.html")
     if request.method == "POST":
         email = request.form.get("email", default="")
 
         # send code (a random 6 digit number) to email
-        global random_code
+        global random_code 
         random_code = random.randint(1_000_000,9_999_999)
+        print(f"random code: {random_code}")
         send_verification_code(email_receiver=email, body=str(random_code))
 
-        return render_template("give_email.html", email=email)
+        return render_template("sending_code.html", email=email)
 
 
 @app.route("/login", methods=["GET","POST"])
@@ -39,7 +50,7 @@ def login():
         code = int(request.form.get("code", default=""))
 
         if (code == random_code):
-            return render_template("success_login.html")
+            return render_template("success_login.html", students_alums=students_alums)
         else:
             return render_template("fail_login.html")
 
