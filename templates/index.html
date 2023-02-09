@@ -8,8 +8,9 @@
 {% block content %}
     <h1>Index</h1>
     <form action="/sending_code" method="POST">
-      <label for="email">Email:</label>
-      <input type="email" name="email" id="email" required />
+      <label for="text">Email:</label>
+      <input type="text" name="email" id="email" required autocomplete="off" style="width: auto;"/>
+      <label>@binghamton.edu</label>
       <button class="submit button" name="register" id="register">Submit</button>
     </form>
 {% endblock %}

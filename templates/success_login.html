@@ -1,16 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    You successfully logged in!
-</body>
-</html> -->
-
 {% extends "base.html" %}
 {% block title %}Choose!{% endblock %}
 {% block head %}
@@ -35,12 +22,12 @@
       <input type="submit" />
     </form>
 
-    <p>NOTE: if they have a different name that they go by, then it may be one of the following forms: </p>
+    <pre>NOTE: if they have a different name that they go by, then it may be one of the following forms: </pre>
 
-    <p>legalFirstName (<b>DifferentName</b>) legalLastName</p>
-    <p>legalFirstName(<b>DifferentName</b>) legalLastName</p>
-    <p><b>DifferentName</b> (legalFirstName) legalLastName</p>
-    <p><b>DifferentName</b>(legalFirstName) legalLastName</p>
+    <pre>legalFirstName (<b>DifferentName</b>) legalLastName</pre>
+    <pre>legalFirstName(<b>DifferentName</b>) legalLastName</pre>
+    <pre><b>DifferentName</b> (legalFirstName) legalLastName</pre>
+    <pre><b>DifferentName</b>(legalFirstName) legalLastName</pre>
 
     <script>
       function autocomplete(inp, arr) {

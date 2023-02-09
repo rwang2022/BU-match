@@ -32,7 +32,7 @@ def sending_code():
     if request.method == "GET":
         return render_template("sending_code.html")
     if request.method == "POST":
-        email = request.form.get("email", default="")
+        email = request.form.get("email", default="") + "@binghamton.edu"
 
         # send code (a random 6 digit number) to email
         global random_code 

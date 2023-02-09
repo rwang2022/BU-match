@@ -2,24 +2,20 @@
 
 ## About
 ```
-Select up to 5 students/alumni that you fancy.
+Select up to 5 students/alumni that you like.
 If they select you too, you'll both be notified via B-mail after some time.
 Until there is a match, you'll see a "no match found" message.
-Interested? Visit \<Deployed Website\>
 ```
+Interested? Visit \<Deployed Website\>
 
 ## Collaborators:
-```
-Name             | Role
----------------- | -------------------
-Ryan Wang        | Frontend + Backend 
-Erika Nelson     | UI + CSS + Art
-```
 
-## Users:
-Go to \<Deployed Website\>
+Name | Role
+---- | -----
+Ryan Wang | Frontend + Backend 
+Erika Nelson | UI + CSS + Art
 
-## Developers: Getting Started
+## For Developers: Getting Started
 Be sure to have python3 and pip3 installed. 
 
 1. Clone this repository.
