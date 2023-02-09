@@ -13,8 +13,8 @@ global email
 global students_alums
 
 # opening the CSV file
-with open('data/students_alums.csv', mode ='r') as file:
-  csvFile = pandas.read_csv(file)
+with open('data/students_alums.csv', mode='r') as file:
+    csvFile = pandas.read_csv(file)
 students_alums = csvFile.values.tolist()
 # print(students_alums[0])
 for i in range(len(students_alums)):
@@ -22,12 +22,12 @@ for i in range(len(students_alums)):
 # print(students_alums[0])
 
 
-@app.route("/", methods=["GET","POST"])
+@app.route("/", methods=["GET", "POST"])
 def index():
     return render_template("index.html")
 
 
-@app.route("/sending_code", methods=["GET","POST"])
+@app.route("/sending_code", methods=["GET", "POST"])
 def sending_code():
     if request.method == "GET":
         return render_template("sending_code.html")
@@ -35,15 +35,15 @@ def sending_code():
         email = request.form.get("email", default="") + "@binghamton.edu"
 
         # send code (a random 6 digit number) to email
-        global random_code 
-        random_code = random.randint(1_000_000,9_999_999)
+        global random_code
+        random_code = random.randint(1_000_000, 9_999_999)
         print(f"random code: {random_code}")
         send_verification_code(email_receiver=email, body=str(random_code))
 
         return render_template("sending_code.html", email=email)
 
 
-@app.route("/login", methods=["GET","POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
         return "Huh?"
@@ -56,11 +56,32 @@ def login():
             return render_template("fail_login.html")
 
 
-@app.route("/acknowledge", methods=["GET","POST"])
+@app.route("/acknowledge", methods=["GET", "POST"])
 def acknowledge():
     crush = request.form.get("crush", default="")
-    # print(f"your crush is {crush}")
-    return render_template("acknowledge.html", crush=crush)
+
+    waiting = [
+        ["Nigemichi: Nashi", "_zy0sp7iZ1I"],
+        ["bluff", "CemKsp95OY4"]
+    ]
+    no_match = [
+        ["Shippai", "jTl8soYvElo"],
+        ["Souiu natsu", "udkxHDhESBI"],
+        ["Owatta", "uJ6BOG-IHN4"]
+    ]
+    match = [
+        ["Yamato nadeshiko", "FGibulARiZQ"],
+        ["Shiritsu Shuuchiin Gakuen", "Na05DCSgg2E"],
+        ["Here's your chance!", "z4wzGSgczKY"]
+    ]
+
+    i = 0
+    # music_url = "https://www.youtube.com/embed/" + waiting[i][1] + "?autoplay=1"
+    # music_url = "https://www.youtube.com/embed/" + no_match[i][1] + "?autoplay=1"
+    music_url = "https://www.youtube.com/embed/" + match[i][1] + "?autoplay=1"
+
+    print(music_url)
+    return render_template("acknowledge.html", crush=crush, music_url=music_url)
 
 
 def send_verification_code(email_receiver, body):
