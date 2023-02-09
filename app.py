@@ -16,10 +16,10 @@ global students_alums
 with open('data/students_alums.csv', mode ='r') as file:
   csvFile = pandas.read_csv(file)
 students_alums = csvFile.values.tolist()
-print(students_alums[0])
+# print(students_alums[0])
 for i in range(len(students_alums)):
     students_alums[i] = f"{students_alums[i][1]}, {students_alums[i][2]}, {students_alums[i][3]}"
-print(students_alums[0])
+# print(students_alums[0])
 
 
 @app.route("/", methods=["GET","POST"])
@@ -59,7 +59,7 @@ def login():
 @app.route("/acknowledge", methods=["GET","POST"])
 def acknowledge():
     crush = request.form.get("crush", default="")
-    print(f"your crush is {crush}")
+    # print(f"your crush is {crush}")
     return render_template("acknowledge.html", crush=crush)
 
 

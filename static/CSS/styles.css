@@ -7,6 +7,10 @@ body {
   background-color: #ffc5d9bb;
 }
 
+pre {
+  font-size: large;
+}
+
  /* Add a black background color to the top navigation */
 .topnav {
   background-color: pink;

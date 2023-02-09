@@ -7,7 +7,9 @@
 {% endblock %}
 {% block content %}
     <h1>Choose your match</h1>
-
+    
+    <pre style="color: darkmagenta;">You must choose an option <b>ONLY</b> from the dropdown menu.</pre>
+    
     <!--Make sure the form has the autocomplete function switched off:-->
     <form autocomplete="off" action="/acknowledge" method="POST">
       <div class="autocomplete" style="width: 600px;">
@@ -23,7 +25,6 @@
     </form>
 
     <pre>NOTE: if they have a different name that they go by, then it may be one of the following forms: </pre>
-
     <pre>legalFirstName (<b>DifferentName</b>) legalLastName</pre>
     <pre>legalFirstName(<b>DifferentName</b>) legalLastName</pre>
     <pre><b>DifferentName</b> (legalFirstName) legalLastName</pre>
@@ -138,7 +139,7 @@
 
       /*An array containing all the students and alums:*/
       const students_alums = JSON.parse('{{ students_alums | tojson }}');
-      console.log(students_alums);
+      // console.log(students_alums);
 
       /*initiate the autocomplete function on the "crush" element, and pass along the countries array as possible autocomplete values:*/
       autocomplete(document.getElementById("crush"), students_alums);

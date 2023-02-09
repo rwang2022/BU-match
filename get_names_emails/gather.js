@@ -27,13 +27,14 @@ while (scroller.scrollHeight - scroller.scrollTop > 1000) {
 }
 
 // And to extract the variable to a file, use 
-// JSON.stringify(Array.from(exportedContactsStorage))
+JSON.stringify(Array.from(exportedContactsStorage))
 
-// function download(content, fileName, contentType) {
-//   var a = document.createElement("a");
-//   var file = new Blob([content], { type: contentType });
-//   a.href = URL.createObjectURL(file);
-//   a.download = fileName;
-//   a.click();
-// }
-// download(Array.from(exportedContactsStorage), "json.txt", "text/plain");
+// This is better
+function download(content, fileName, contentType) {
+  var a = document.createElement("a");
+  var file = new Blob([content], { type: contentType });
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
+}
+download(Array.from(exportedContactsStorage), "json.txt", "text/plain");
