@@ -11,98 +11,36 @@
 </body>
 </html> -->
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../CSS/styles.css" />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        font: 16px Arial;
-      }
-
-      /*the container must be positioned relative:*/
-      .autocomplete {
-        position: relative;
-        display: inline-block;
-      }
-
-      input {
-        border: 1px solid transparent;
-        background-color: #f1f1f1;
-        padding: 10px;
-        font-size: 16px;
-      }
-
-      input[type="text"] {
-        background-color: #f1f1f1;
-        width: 100%;
-      }
-
-      input[type="submit"] {
-        background-color: DodgerBlue;
-        color: #fff;
-        cursor: pointer;
-      }
-
-      .autocomplete-items {
-        position: absolute;
-        border: 1px solid #d4d4d4;
-        border-bottom: none;
-        border-top: none;
-        z-index: 99;
-        /*position the autocomplete items to be the same width as the container:*/
-        top: 100%;
-        left: 0;
-        right: 0;
-      }
-
-      .autocomplete-items div {
-        padding: 10px;
-        cursor: pointer;
-        background-color: #fff;
-        border-bottom: 1px solid #d4d4d4;
-      }
-
-      /*when hovering an item:*/
-      .autocomplete-items div:hover {
-        background-color: #e9e9e9;
-      }
-
-      /*when navigating through the items using the arrow keys:*/
-      .autocomplete-active {
-        background-color: DodgerBlue !important;
-        color: #ffffff;
-      }
+{% extends "base.html" %}
+{% block title %}Choose!{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
     </style>
-  </head>
-
-  <body>
-    <h2>Choose your match</h2>
+{% endblock %}
+{% block content %}
+    <h1>Choose your match</h1>
 
     <!--Make sure the form has the autocomplete function switched off:-->
     <form autocomplete="off" action="/acknowledge" method="POST">
-      <div class="autocomplete" style="width: 450px">
+      <div class="autocomplete" style="width: 600px;">
         <input
           id="crush"
           type="text"
           name="crush"
           placeholder="Start typing their name"
+          style="text-align: left;"
         />
       </div>
       <input type="submit" />
     </form>
 
-    <p>NOTE: if they have a different name that they go by, then it will be in the form: </p>
-    <pre>
-      legalFirstName (DifferentName) legalLastName
-                          or
-      legalFirstName(DifferentName) legalLastName
-    </pre>
+    <p>NOTE: if they have a different name that they go by, then it may be one of the following forms: </p>
+
+    <p>legalFirstName (<b>DifferentName</b>) legalLastName</p>
+    <p>legalFirstName(<b>DifferentName</b>) legalLastName</p>
+    <p><b>DifferentName</b> (legalFirstName) legalLastName</p>
+    <p><b>DifferentName</b>(legalFirstName) legalLastName</p>
 
     <script>
       function autocomplete(inp, arr) {
@@ -218,5 +156,4 @@
       /*initiate the autocomplete function on the "crush" element, and pass along the countries array as possible autocomplete values:*/
       autocomplete(document.getElementById("crush"), students_alums);
     </script>
-  </body>
-</html>
+{% endblock %}

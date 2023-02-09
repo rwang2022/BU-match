@@ -1,15 +1,20 @@
 * {
   box-sizing: border-box;
+  text-align: center;
 }
 
 body {
   font: 16px Arial;
 }
 
-/*the container must be positioned relative:*/
-.autocomplete {
-  position: relative;
+button[class="submit button"] {
+  background-color:rgb(22, 125, 223); /* Green */
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
   display: inline-block;
+  font-size: 16px;
 }
 
 input {
@@ -20,17 +25,33 @@ input {
 }
 
 input[type="text"] {
+  width: 600px;
   background-color: #f1f1f1;
-  width: 100%;
+  color: black;
+}
+
+input[type="email"] {
+  width: 600px;
+  background-color: #f1f1f1;
+  color: black;
 }
 
 input[type="submit"] {
+  width: 150px;
   background-color: DodgerBlue;
   color: #fff;
   cursor: pointer;
 }
 
+/*the container must be positioned relative:*/
+.autocomplete {
+  text-align: left;
+  position: relative;
+  display: inline-block;
+}
+
 .autocomplete-items {
+  text-align: left;
   position: absolute;
   border: 1px solid #d4d4d4;
   border-bottom: none;
@@ -43,6 +64,7 @@ input[type="submit"] {
 }
 
 .autocomplete-items div {
+  text-align: left;
   padding: 10px;
   cursor: pointer;
   background-color: #fff;
