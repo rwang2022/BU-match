@@ -85,12 +85,12 @@
     <h2>Choose your match</h2>
 
     <!--Make sure the form has the autocomplete function switched off:-->
-    <form autocomplete="off" action="/action_page.php">
-      <div class="autocomplete" style="width: 300px">
+    <form autocomplete="off" action="/acknowledge" method="POST">
+      <div class="autocomplete" style="width: 450px">
         <input
-          id="myInput"
+          id="crush"
           type="text"
-          name="myCountry"
+          name="crush"
           placeholder="Start typing their name"
         />
       </div>
@@ -215,8 +215,8 @@
       const students_alums = JSON.parse('{{ students_alums | tojson }}');
       console.log(students_alums);
 
-      /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-      autocomplete(document.getElementById("myInput"), students_alums);
+      /*initiate the autocomplete function on the "crush" element, and pass along the countries array as possible autocomplete values:*/
+      autocomplete(document.getElementById("crush"), students_alums);
     </script>
   </body>
 </html>

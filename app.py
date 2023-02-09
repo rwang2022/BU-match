@@ -21,6 +21,7 @@ for i in range(len(students_alums)):
     students_alums[i] = f"{students_alums[i][1]}, {students_alums[i][2]}, {students_alums[i][3]}"
 print(students_alums[0])
 
+
 @app.route("/", methods=["GET","POST"])
 def index():
     return render_template("index.html")
@@ -53,6 +54,13 @@ def login():
             return render_template("success_login.html", students_alums=students_alums)
         else:
             return render_template("fail_login.html")
+
+
+@app.route("/acknowledge", methods=["GET","POST"])
+def acknowledge():
+    crush = request.form.get("crush", default="")
+    print(f"your crush is {crush}")
+    return render_template("acknowledge.html", crush=crush)
 
 
 def send_verification_code(email_receiver, body):
