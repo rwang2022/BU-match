@@ -2,7 +2,8 @@
 {% block title %}Crushes!{% endblock %}
 {% block head %}
     {{ super() }}
-
+    <style type="text/css">
+    </style>
     <!-- Start MUSIC -->
     <!-- ========================================================================= -->
     <!-- .......................................................................................... -->
@@ -13,19 +14,19 @@
 
     <!-- 07. Nigemichi: Nashi  -->
     <!-- <iframe hidden src="https://www.youtube.com/embed/_zy0sp7iZ1I?autoplay=1"></iframe> -->
-    
+
     <!-- .......................................................................................... -->
     <!-- NO MATCH SONGS -->
     <!-- .......................................................................................... -->
     <!-- 21. Souiu natsu  -->
     <!-- <iframe hidden src="https://www.youtube.com/embed/udkxHDhESBI?autoplay=1"></iframe> -->
-    
+
     <!-- 19. Owatta  -->
     <!-- <iframe hidden src="https://www.youtube.com/embed/uJ6BOG-IHN4?autoplay=1"></iframe> -->
-    
+
     <!-- 19. Shippai  -->
-    <!-- <iframe hidden src="https://www.youtube.com/embed/uJ6BOG-IHN4?autoplay=1"></iframe> -->
-    
+    <!-- <iframe hidden src="https://www.youtube.com/embed/jTl8soYvElo?autoplay=1"></iframe> -->
+
     <!-- .......................................................................................... -->
     <!-- MATCH SONGS -->
     <!-- .......................................................................................... -->
@@ -34,17 +35,16 @@
 
     <!-- Shiritsu Shuuchiin Gakuen   -->
     <!-- <iframe hidden src="https://www.youtube.com/embed/Na05DCSgg2E?autoplay=1"></iframe> -->
-    
+
     <!-- Yamato nadeshiko -->
-    <!-- <iframe hidden src="https://www.youtube.com/embed/FGibulARiZQ?autoplay=1"></iframe> -->
+    <iframe hidden src="https://www.youtube.com/embed/FGibulARiZQ?autoplay=1"></iframe>
     <!-- ========================================================================= -->
     <!-- End MUSIC -->
-
-    <style type="text/css">
-    </style>
 {% endblock %}
+
 {% block content %}
-    <p>Your crush so far is</p>
-    <p>{{crush}}</p>
-    <p>Status on {{crush}}: {{status}}</p>
+<p>Your crush so far is</p>
+<p>{{crush}}</p>
+<p>Status on {{crush}}:</p>
+<button>load results</button>
 {% endblock %}
