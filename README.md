@@ -13,7 +13,7 @@ Interested? Visit \<Deployed Website\>
 Name             | Role
 ---------------- | -------------------
 Ryan Wang        | Frontend + Backend 
-Erica Nelson     | UI + CSS + Art
+Erika Nelson     | UI + CSS + Art
 ```
 
 ## Users:
