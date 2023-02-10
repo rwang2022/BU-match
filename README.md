@@ -43,5 +43,10 @@ $ source venv/bin/activate
 ```
 (env) $ python app.py
 ```
+
+5. Deactivate when you're done
+```
+(env) $ deactivate
+```
 You'll be able to access the web app at http://127.0.0.1/5000/
 
