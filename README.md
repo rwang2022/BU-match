@@ -27,10 +27,12 @@ $ cd BU-match
 2. Create a new virtual environment.
 ```
 $ python3 -m venv env
-
-# Windows: activate env 
-$ 。/env/bin/activate
-# Mac: activate env
+```
+3. Activate virtual environment. 
+```
+# ======= Windows: activate env ========= #
+$ ./env/bin/activate
+# ======= Mac: activate env ============= #
 $ source venv/bin/activate
 ```
 
