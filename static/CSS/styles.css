@@ -1,3 +1,15 @@
+:root {
+  /* colors  */
+  --my-white: #e7ecefff;
+  --my-light-blue: #90E0EF;
+  --my-pale-blue: #ADD8E6;
+  --my-blue: #00B4D8;
+  --my-dark-blue:  #03045E;
+
+  /* other variables */
+  --my-font-family: "Georgia", serif;
+}
+
 * {
   box-sizing: border-box;
   text-align: center;
