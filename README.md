@@ -1,4 +1,4 @@
-# BU-Match-Making
+# BU-match
 
 ## About
 ```
