@@ -28,9 +28,10 @@ $ cd BU-match
 ```
 $ python3 -m venv env
 
-# depending on OS, choose one of the following
-$ . path/to/venv/bin/activate
-$ path\to\env\Scripts\activate
+# Windows: activate env 
+$ 。/env/bin/activate
+# Mac: activate env
+$ source venv/bin/activate
 ```
 
 3. Install project dependencies.
@@ -40,7 +41,7 @@ $ path\to\env\Scripts\activate
 
 4. Run the app.
 ```
-(env) $ python __init__.py
+(env) $ python app.py
 ```
 You'll be able to access the web app at http://127.0.0.1/5000/
 
