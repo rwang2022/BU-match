@@ -1,19 +1,44 @@
-{% extends "base.html" %}
-{% block title %}Crushes!{% endblock %}
-{% block head %}
-    {{ super() }}
-    <style type="text/css">
-    </style>
-    <iframe 
-        hidden
-        src = {{music_url}}
-    >
-    </iframe>
-{% endblock %}
+{% extends "base.html" %} {% block title %}Crushes!{% endblock %} {% block head
+%} {{ super() }}
+<style type="text/css">
+    button {
+        height: 7vh;
+        width: 15vh;
+        background-color: var(--light-green);
+    }
+</style>
+<iframe hidden src="{{music_url}}"> </iframe>
+{% endblock %} {% block content %}
+<h1>Status on your crushes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Crush</th>
+      <th>Status</th>
+    </tr>
+  </thead>
 
-{% block content %}
-    <p>Your crush so far is</p>
-    <p>{{crush}}</p>
-    <p>Status on {{crush}}:</p>
-    <button>load results</button>
+  <tbody>
+    <tr>
+      <td>{{crush}}</td>
+      <td><button>REVEAL</button></td>
+    </tr>
+    <tr>
+      <td>{{crush}}</td>
+      <td><button>REVEAL</button></td>
+    </tr>
+    <tr>
+      <td>{{crush}}</td>
+      <td><button>REVEAL</button></td>
+    </tr>
+    <tr>
+      <td>{{crush}}</td>
+      <td><button>REVEAL</button></td>
+    </tr>
+    <tr>
+      <td>{{crush}}</td>
+      <td><button>REVEAL</button></td>
+    </tr>
+  </tbody>
+</table>
 {% endblock %}

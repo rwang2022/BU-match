@@ -2,13 +2,11 @@
 {% block title %}Choose!{% endblock %}
 {% block head %}
     {{ super() }}
-    <style type="text/css">
-    </style>
 {% endblock %}
 {% block content %}
     <h1>Choose your match</h1>
     
-    <pre style="color: darkmagenta;">You must choose an option <b>ONLY</b> from the dropdown menu.</pre>
+    <pre style="color: var(--medium-blue);">You must choose an option <b>ONLY</b> from the dropdown menu.</pre>
     
     <!--Make sure the form has the autocomplete function switched off:-->
     <form autocomplete="off" action="/acknowledge" method="POST">

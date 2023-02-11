@@ -3,9 +3,9 @@
   --light-yellow: #f2d96cff;
   --gold: #ecc263ff;
 
-  --pink: #ddc4d1ff;
+  --pink: rgb(238, 141, 157);
   --salmon: #cd6463ff;
-  --red: #ad2021ff;
+  --red: rgb(185, 49, 49);
   --dark-red: #7d2c31ff;
 
   --light-green: #c8e3afff;
@@ -24,19 +24,49 @@
 }
 
 body {
-  background-color: #ffc5d9bb;
+  background-color: pink;
 }
 
 pre {
   font-size: large;
 }
 
-/* Add a black background color to the top navigation */
-.topnav {
-  background-color: pink;
-  overflow: hidden;
+h1 {
+  color: var(--dark-red);
 }
 
+table {
+  width: 50%;
+  margin: auto;
+  background-color: var(--light-yellow);
+  border: solid 1px #ddeeee;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font: var(--my-font-family);
+}
+table thead {
+  height: 10vh;
+  border: solid 1px #ddeeee;
+  background-color: var(--gold);
+  color: #336b6b;
+  text-align: center;
+}
+table tbody {
+  height: 50vh;
+  border: solid 1px #ddeeee;
+  color: #333;
+}
+table, th, td {
+  border: 1px solid var(--dark-red);
+  border-collapse: collapse;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: var(--pink);
+  overflow: hidden;
+}
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
@@ -47,21 +77,19 @@ pre {
   font-size: 17px;
   width: 25%;
 }
-
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+  background-color: var(--red);
+  color: white;
 }
-
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: palevioletred;
+  background-color: var(--dark-red);
   color: white;
 }
 
 button[class="submit button"] {
-  background-color: rgb(22, 125, 223); /* Green */
+  background-color: var(--medium-blue);
   color: white;
   padding: 10px 32px;
   text-align: center;
@@ -91,7 +119,7 @@ input[type="email"] {
 
 input[type="submit"] {
   width: 150px;
-  background-color: DodgerBlue;
+  background-color: var(--bright-blue);
   color: #fff;
   cursor: pointer;
 }
