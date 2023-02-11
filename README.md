@@ -33,7 +33,7 @@ $ python3 -m venv env
 # ======= Windows: activate env ========= #
 $ ./env/bin/activate
 # ======= Mac: activate env ============= #
-$ source venv/bin/activate
+$ source env/bin/activate
 ```
 
 3. Install project dependencies.
