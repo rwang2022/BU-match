@@ -1,10 +1,18 @@
 :root {
   /* colors  */
-  --my-white: #e7ecefff;
-  --my-light-blue: #90E0EF;
-  --my-pale-blue: #ADD8E6;
-  --my-blue: #00B4D8;
-  --my-dark-blue:  #03045E;
+  --light-yellow: #f2d96cff;
+  --gold: #ecc263ff;
+
+  --pink: #ddc4d1ff;
+  --salmon: #cd6463ff;
+  --red: #ad2021ff;
+  --dark-red: #7d2c31ff;
+
+  --light-green: #c8e3afff;
+  --green: #658e43ff;
+
+  --bright-blue: #80cdc7ff;
+  --medium-blue: #4ca7b3;
 
   /* other variables */
   --my-font-family: "Georgia", serif;
@@ -23,7 +31,7 @@ pre {
   font-size: large;
 }
 
- /* Add a black background color to the top navigation */
+/* Add a black background color to the top navigation */
 .topnav {
   background-color: pink;
   overflow: hidden;
@@ -53,7 +61,7 @@ pre {
 }
 
 button[class="submit button"] {
-  background-color:rgb(22, 125, 223); /* Green */
+  background-color: rgb(22, 125, 223); /* Green */
   color: white;
   padding: 10px 32px;
   text-align: center;
