@@ -48,8 +48,10 @@ def login():
     if request.method == "GET":
         return "Huh?"
     if request.method == "POST":
-        code = int(request.form.get("code", default=""))
-
+        try:
+            code = int(request.form.get("code", default=""))
+        except:
+            return render_template("fail_login.html")
         if (code == random_code):
             return render_template("success_login.html", students_alums=students_alums)
         else:

@@ -13,14 +13,14 @@
 
   --bright-blue: #80cdc7ff;
   --medium-blue: #4ca7b3;
-
-  /* other variables */
-  --my-font-family: "Georgia", serif;
 }
 
 * {
   box-sizing: border-box;
   text-align: center;
+  font-family: monospace;
+  font-size: larger;
+  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
 
 body {
@@ -42,7 +42,6 @@ table {
   border: solid 1px #ddeeee;
   border-collapse: collapse;
   border-spacing: 0;
-  font: var(--my-font-family);
 }
 table thead {
   height: 10vh;
@@ -99,6 +98,7 @@ button[class="submit button"] {
 }
 
 input {
+  font-size: medium;
   border: 1px solid transparent;
   background-color: #f1f1f1;
   padding: 10px;
@@ -126,6 +126,7 @@ input[type="submit"] {
 
 /*the container must be positioned relative:*/
 .autocomplete {
+  font-size: small;
   text-align: left;
   position: relative;
   display: inline-block;
