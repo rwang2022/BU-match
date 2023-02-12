@@ -36,6 +36,7 @@ h1 {
 }
 
 table {
+  font-size: medium;
   width: 50%;
   margin: auto;
   background-color: var(--light-yellow);
@@ -85,6 +86,10 @@ table, th, td {
 .topnav a.active {
   background-color: var(--dark-red);
   color: white;
+}
+
+button {
+  border-radius: 20px;
 }
 
 button[class="submit button"] {
