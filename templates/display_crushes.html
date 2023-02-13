@@ -1,14 +1,9 @@
-{% extends "base.html" %} {% block title %}Crushes!{% endblock %} {% block head
+{% extends "base.html" %} {% block title %}Welcome!{% endblock %} {% block head
 %} {{ super() }}
-<style type="text/css">
-    button {
-        height: 7vh;
-        width: 15vh;
-        background-color: var(--light-green);
-    }
-</style>
-<iframe hidden src="{{music_url}}"> </iframe>
+<style type="text/css"></style>
 {% endblock %} {% block content %}
+<h1>Good luck, {{email}}!</h1>
+
 <h1>Status on your crushes</h1>
 <table>
   <thead>
@@ -18,7 +13,7 @@
     </tr>
   </thead>
 
-  <tbody style="font-size: medium;">
+  <tbody style="font-size: medium">
     <tr>
       <td>{{crush}}</td>
       <td><button>REVEAL</button></td>

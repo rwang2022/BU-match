@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 import random
 import smtplib
 import ssl
@@ -24,17 +24,24 @@ for i in range(len(students_alums)):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if session.get('username') is not None:
-        return render_template("acknowledge.html")
-    return render_template("index.html")
+    if session.get('verify') == True:
+        return render_template("display_crushes.html", email=session['email'])
+    return render_template("welcome.html")
 
 
 @app.route("/sending_code", methods=["GET", "POST"])
 def sending_code():
+    # try:
+    #     print(random_code)
+    # except:
+    #     return redirect("/")
+        
     if request.method == "GET":
         return render_template("sending_code.html")
+    
     if request.method == "POST":
         email = request.form.get("email", default="") + "@binghamton.edu"
+        session['email'] = email
 
         # send code (a random 6 digit number) to email
         global random_code
@@ -48,14 +55,15 @@ def sending_code():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
-        return "Huh?"
+        return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
     if request.method == "POST":
         try:
             code = int(request.form.get("code", default=""))
         except:
-            return render_template("fail_login.html")
+            return render_template("fail_login.html")   
         if (code == random_code):
-            return render_template("success_login.html", students_alums=students_alums)
+            session['verify'] = True
+            return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
         else:
             return render_template("fail_login.html")
 

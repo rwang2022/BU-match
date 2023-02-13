@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Welcome!{% endblock %} {% block head
+%} {{ super() }}
+<style type="text/css"></style>
+{% endblock %} {% block content %}
+<h1>Welcome, user!</h1>
+
+<h2>Your B-Mail</h2>
+<form action="/sending_code" method="POST">
+  <label for="email">Email:</label>
+  <input
+    type="text"
+    name="email"
+    id="email"
+    placeholder="jsmith123"
+    autocomplete="off"
+    style="width: auto"
+    required
+  />
+  <label>@binghamton.edu</label>
+  <button class="submit button" name="register" id="register">Submit</button>
+</form>
+{% endblock %}

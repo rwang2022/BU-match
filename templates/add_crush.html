@@ -4,12 +4,12 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
-    <h1>Choose your match</h1>
+    <h1>Choose your match, {{email}}!</h1>
     
     <pre style="color: var(--medium-blue);">You must choose an option <b>ONLY</b> from the dropdown menu.</pre>
     
     <!--Make sure the form has the autocomplete function switched off:-->
-    <form autocomplete="off" action="/acknowledge" method="POST">
+    <form autocomplete="off" action="/" method="POST">
       <div class="autocomplete" style="width: 600px;">
         <input
           id="crush"

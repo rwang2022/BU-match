@@ -13,12 +13,14 @@
 
   --bright-blue: #80cdc7ff;
   --medium-blue: #4ca7b3;
+
+  --my-font-family: Optima, sans-serif;
 }
 
 * {
   box-sizing: border-box;
   text-align: center;
-  font-family: Optima, sans-serif	;
+  font-family: var(--my-font-family);
   font-size: larger;
   /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
@@ -90,6 +92,9 @@ table, th, td {
 
 button {
   border-radius: 20px;
+  font-size: large;
+  width: 200px;
+  height: 50px;
 }
 
 button[class="submit button"] {
@@ -129,15 +134,21 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+strong {
+  font-size: large;
+  font-family: var(--my-font-family);
+}
+
 /*the container must be positioned relative:*/
 .autocomplete {
-  font-size: small;
+  font-size: medium;
   text-align: left;
   position: relative;
   display: inline-block;
 }
 
 .autocomplete-items {
+  font-size: medium;
   text-align: left;
   position: absolute;
   border: 1px solid #d4d4d4;
