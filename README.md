@@ -31,7 +31,7 @@ $ python3 -m venv env
 3. Activate virtual environment. 
 ```
 # ======= Windows: activate env ========= #
-$ ./env/bin/activate
+$ .\env\Scripts\activate
 # ======= Mac: activate env ============= #
 $ source env/bin/activate
 ```

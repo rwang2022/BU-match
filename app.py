@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import random
 import smtplib
 import ssl
@@ -6,8 +6,10 @@ import smtplib
 from app_password import password
 from email.message import EmailMessage
 import pandas
+from os import urandom
 
 app = Flask(__name__)
+app.secret_key = urandom(32)
 
 global email
 global students_alums
@@ -16,14 +18,14 @@ global students_alums
 with open('data/students_alums.csv', mode='r') as file:
     csvFile = pandas.read_csv(file)
 students_alums = csvFile.values.tolist()
-# print(students_alums[0])
 for i in range(len(students_alums)):
     students_alums[i] = f"{students_alums[i][1]}, {students_alums[i][2]}, {students_alums[i][3]}"
-# print(students_alums[0])
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    if session.get('username') is not None:
+        return render_template("acknowledge.html")
     return render_template("index.html")
 
 
