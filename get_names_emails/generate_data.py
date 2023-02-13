@@ -10,7 +10,15 @@ list_of_everyone = json.loads(x)
 
 # filters a list of dictionaries, of only students and alums
 included = ["ALUM, Binghamton University", "STUDENT, Binghamton University"]
-students_alums = [{key:value for (key,value) in person.items()} for person in list_of_everyone if person["job_title"] in included]
+
+
+def filter_bing(title):
+    if "STUDENT" in title or "ALUM" in title:
+        return True
+    return False
+
+
+students_alums = [{key:value for (key,value) in person.items()} for person in list_of_everyone if filter_bing(person["job_title"])]
 unsure = [{key:value for (key,value) in person.items()} for person in list_of_everyone if person["job_title"] == ""]
 
 # printing to make sure
