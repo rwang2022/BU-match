@@ -25,10 +25,11 @@ for i in range(len(students_alums)):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    error = request.args.get('error')
     if session.get('verify') == True:
         crush_list = checkCrushList(session['email'])
         print(crush_list)
-        return render_template("display_crushes.html", email=session['email'], crush_list=crush_list)
+        return render_template("display_crushes.html", email=session['email'], crush_list=crush_list, error=error)
     return render_template("welcome.html")
 
 
@@ -45,7 +46,6 @@ def append_crush():
     crush_info = request.form.get("crush", default="")
     error = add_crush(user_info, crush_info)
     crush_list = checkCrushList(session['email'])
-    print("line42")
     print(crush_list)
     return render_template("display_crushes.html", email=session['email'], crush_list=crush_list, error=error)
 
@@ -63,7 +63,7 @@ def sending_code():
         global random_code
         random_code = random.randint(1_000_000, 9_999_999)
         print(f"random code: {random_code}")
-        send_verification_code(email_receiver=email, body=str(random_code))
+        send_email(subject="BU-match verify", email_receiver=email, body=str(random_code))
 
         return render_template("sending_code.html", email=email)
 
@@ -98,17 +98,28 @@ def reveal_crush():
     button_crush = request.form.get("crush_reveal").split(", ")[1]
     print(f"button_crush: {button_crush}")
     if button_crush in matched_crushes:
-        return render_template("reveal_crush.html", matched_crushes=matched_crushes)
+        return render_template("reveal_crush.html", matched_crush=button_crush)
     return "<p>L no rizz</p>"
 
 
-def send_verification_code(email_receiver, body):
+@app.route("/notify_both", methods=["GET", "POST"])
+def notify_both():
+    email = session['email']
+    crush_email = request.form['crush_reveal']
+
+    subject = "Match found!"
+    body = "You have matched! Check the BU-match website."
+    send_email(subject, email, str(body))
+    send_email(subject, crush_email, body)
+
+    error=f"Email to {crush_email} has been sent"
+    return redirect(url_for('index', error=error))
+
+
+def send_email(subject, email_receiver, body):
     # sends the emails
     email_sender = "edmuchg@gmail.com"
     email_password = password
-
-    subject = "verify"
-    body = str(random_code)
 
     em = EmailMessage()
     em['From'] = email_sender

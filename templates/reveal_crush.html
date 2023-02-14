@@ -1,11 +1,15 @@
-{% extends "base.html" %} {% block title %}Welcome!{% endblock %} 
-{% block head%} 
-{{ super() }}
+{% extends "base.html" %} {% block title %}Welcome!{% endblock %} {% block
+head%} {{ super() }}
 <style type="text/css"></style>
 {% endblock %} 
 
-{% block content %}
-{% for matched_crush in matched_crushes %}
+{% block content %} 
+
 <p>You are a match with {{matched_crush}}!</p>
-{% endfor %}
+<form action="/notify_both" method="POST">
+  <input type="hidden" name="crush_reveal" value="{{ matched_crush }}" />
+  <button formaction="/notify_both" style="min-height: auto; min-width: 400px;">Notify {{ matched_crush }}</button>
+  <p style="font-size: medium;">You'll also get a confirmation email.</p>
+</form>
+
 {% endblock %}
