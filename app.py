@@ -143,13 +143,9 @@ def add_crush(user_info, crush_info):
     crush_number = cursor.fetchone()[0]
     
     # collect the list of crushes
-    query = f"SELECT crush_info FROM crushes WHERE self_info = '{user_info}'"
-    cursor.execute(query)
-    cursor_list = cursor.fetchall()
-    python_list_crushes = []
-    for sub_list in cursor_list:
-        python_list_crushes.append(sub_list[0])
+    python_list_crushes = checkCrushList(user_info=user_info)
 
+    # add new crush to list
     # prevent adding if user has 5 or more crushes, or if crush is already in python_list_crushes
     if (crush_number < 5) and (crush_info not in python_list_crushes):
         cursor.execute(f"INSERT INTO crushes VALUES ('{user_info}', '{crush_info}')")
@@ -161,6 +157,29 @@ def add_crush(user_info, crush_info):
     connection.commit()
     connection.close()
     print(f"after adding: {python_list_crushes}")
+
+
+def checkForMatch(user_info):
+    your_crushes = checkCrushList(user_info)
+    for crush in your_crushes:
+        crushes_crushes = checkCrushList(crush)
+        if user_info in crushes_crushes:
+            print(f"{crush} has a crush on you!")
+
+
+def checkCrushList(user_info):
+    # general, connection and cursor
+    connection = sqlite3.connect("crushes.db")
+    cursor = connection.cursor()
+
+    # collect the list of crushes
+    query = f"SELECT crush_info FROM crushes WHERE self_info = '{user_info}'"
+    cursor.execute(query)
+    cursor_list = cursor.fetchall()
+    crush_list = []
+    for sub_list in cursor_list:
+        crush_list.append(sub_list[0])
+    return crush_list
 
 
 def clear_data():
