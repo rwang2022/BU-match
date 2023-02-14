@@ -109,6 +109,11 @@ def send_verification_code(email_receiver, body):
         smtp.sendmail(email_sender, email_receiver, em.as_string())
 
 
+@app.route("/reveal_crush", methods=["GET", "POST"])
+def reveal_crush():
+    return render_template("reveal_crush.html")
+
+
 def add_crush(user_info, crush_info):
     # general, connection and cursor
     connection = sqlite3.connect("crushes.db")
