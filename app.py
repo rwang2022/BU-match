@@ -123,6 +123,32 @@ def send_verification_code(email_receiver, body):
         smtp.sendmail(email_sender, email_receiver, em.as_string())
 
 
+@app.route('/delete_crush', methods=['POST'])
+def delete_crush():
+    crush_to_delete = request.form['crush_delete']
+    email = session['email']
+    print(f"my info is {email}, {crush_to_delete}")
+    deleteCrush(email, crush_to_delete)
+    print(f"session: {session}")
+    print("line133")
+    return redirect(url_for('index'))
+
+
+def deleteCrush(user_info, crush_info):
+    # general, connection and cursor
+    connection = sqlite3.connect("crushes.db")
+    cursor = connection.cursor()
+
+    # collect the list of crushes
+    query = "DELETE FROM crushes WHERE self_info = ? AND crush_info = ?"
+    cursor.execute(query, (user_info, crush_info))
+
+    # commit and close
+    connection.commit()
+    connection.close()
+
+
+
 def add_crush(user_info, crush_info):
     # general, connection and cursor
     connection = sqlite3.connect("crushes.db")
@@ -143,11 +169,11 @@ def add_crush(user_info, crush_info):
         cursor.execute(f"INSERT INTO crushes VALUES ('{user_info}', '{crush_info}')")
         python_list_crushes.append(crush_info)
     elif crush_number >= 5:
-        error = "You already have 5 crushes"
+        error = "Error: You already have 5 crushes"
     elif (crush_info in python_list_crushes):
-        error = f"You already like {crush_info}"
+        error = f"Error: You already like {crush_info}"
     else:
-        error = "Bad."
+        error = "Error: Bad."
 
 
     # commit and close database
@@ -191,8 +217,6 @@ def clear_data():
     connection = sqlite3.connect("crushes.db")
     cursor = connection.cursor()
     cursor.execute(f"DELETE FROM crushes")
-    # print('We have deleted', cursor.rowcount, 'records from the table.')
-
     connection.commit()
     connection.close()
 
