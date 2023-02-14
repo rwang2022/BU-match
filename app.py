@@ -28,7 +28,7 @@ def index():
     error = request.args.get('error')
     if session.get('verify') == True:
         crush_list = checkCrushList(session['email'])
-        print(crush_list)
+        # # print(crush_list)
         return render_template("display_crushes.html", email=session['email'], crush_list=crush_list, error=error)
     return render_template("welcome.html")
 
@@ -41,12 +41,12 @@ def logout():
 
 @app.route("/append_crush", methods=["GET", "POST"])
 def append_crush():
-    print(session)
+    # # print(session)
     user_info = session['email']
     crush_info = request.form.get("crush", default="")
     error = add_crush(user_info, crush_info)
     crush_list = checkCrushList(session['email'])
-    print(crush_list)
+    # # print(crush_list)
     return render_template("display_crushes.html", email=session['email'], crush_list=crush_list, error=error)
 
 
@@ -62,7 +62,7 @@ def sending_code():
         # send code (a random 6 digit number) to email
         global random_code
         random_code = random.randint(1_000_000, 9_999_999)
-        print(f"random code: {random_code}")
+        # print(f"random code: {random_code}")
         send_email(subject="BU-match verify", email_receiver=email, body=str(random_code))
 
         return render_template("sending_code.html", email=email)
@@ -78,16 +78,16 @@ def login():
 
         if (code == random_code):
             session['verify'] = True
-            print(session)
+            # # print(session)
             return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
         else:
             return render_template("fail_login.html")
     if request.method == "GET":
         if session.get('verify') is None:
-            print("line80")
+            # # print("line80")
             return redirect(url_for('index'))
-        print("line 68")
-        print(session)
+        # # print("line 68")
+        # # print(session)
         # return render_template("fail_login.html")
         return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
 
@@ -96,7 +96,7 @@ def login():
 def reveal_crush():
     matched_crushes = checkForMatch(session['email'])
     button_crush = request.form.get("crush_reveal").split(", ")[1]
-    print(f"button_crush: {button_crush}")
+    # # print(f"button_crush: {button_crush}")
     if button_crush in matched_crushes:
         return render_template("reveal_crush.html", matched_crush=button_crush)
     return "<p>L no rizz</p>"
@@ -138,10 +138,10 @@ def send_email(subject, email_receiver, body):
 def delete_crush():
     crush_to_delete = request.form['crush_delete']
     email = session['email']
-    print(f"my info is {email}, {crush_to_delete}")
+    # # print(f"my info is {email}, {crush_to_delete}")
     deleteCrush(email, crush_to_delete)
-    print(f"session: {session}")
-    print("line133")
+    # # print(f"session: {session}")
+    # # print("line133")
     return redirect(url_for('index'))
 
 
@@ -190,7 +190,7 @@ def add_crush(user_info, crush_info):
     # commit and close database
     connection.commit()
     connection.close()
-    print(f"after adding: {python_list_crushes}")
+    # # print(f"after adding: {python_list_crushes}")
     return error
 
 
@@ -210,17 +210,17 @@ def checkCrushList(user_info):
 
 
 def checkForMatch(user_info):
-    # print(f"user_info: {user_info}")
+    # # print(f"user_info: {user_info}")
     matched_crushes = []
     your_crushes = [i.split(",")[1].strip() for i in checkCrushList(user_info)]
     for crush in your_crushes:
         crushes_crushes = [i.split(",")[1].strip() for i in checkCrushList(crush)]
-        # print(f"{crush}'s crushes: {crushes_crushes}")
+        # # print(f"{crush}'s crushes: {crushes_crushes}")
         if user_info in crushes_crushes:
-            # print(f"{crush} has a crush on you!")
+            # # print(f"{crush} has a crush on you!")
             matched_crushes.append(crush)
     
-    # print(f"matched_crushes: {matched_crushes}")
+    # # print(f"matched_crushes: {matched_crushes}")
     return matched_crushes
 
 
@@ -264,5 +264,5 @@ if __name__ == '__main__':
 #     # music_url = "https://www.youtube.com/embed/" + no_match[i][1] + "?autoplay=1"
 #     music_url = "https://www.youtube.com/embed/" + match[i][1] + "?autoplay=1"
 
-#     print(music_url)
+#     # print(music_url)
 #     return render_template("acknowledge.html", crush=crush, music_url=music_url)
