@@ -142,9 +142,13 @@ def add_crush(user_info, crush_info):
     if (crush_number < 5) and (crush_info not in python_list_crushes):
         cursor.execute(f"INSERT INTO crushes VALUES ('{user_info}', '{crush_info}')")
         python_list_crushes.append(crush_info)
+    elif crush_number >= 5:
+        error = "You already have 5 crushes"
+    elif (crush_info in python_list_crushes):
+        error = f"You already like {crush_info}"
     else:
-        error = "either too many crushes (>5) or you already crush this person"
-        print("Either you already like this person, or you already like 5 people.")
+        error = "Bad."
+
 
     # commit and close database
     connection.commit()
