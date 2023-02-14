@@ -64,8 +64,10 @@ def sending_code():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    print(session)
     if request.method == "GET":
+        print("line 68")
+        print(session)
+        # return render_template("fail_login.html")
         return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
     if request.method == "POST":
         try:
@@ -131,27 +133,34 @@ def send_verification_code(email_receiver, body):
 
 
 def add_crush(user_info, crush_info):
-    # clear_data()
-
-    print(user_info)
-    print(crush_info)
-    
+    # general, connection and cursor
     connection = sqlite3.connect("crushes.db")
     cursor = connection.cursor()
 
-    # count how many crushes the user has
+    # count how many crushes the user currently has, before adding a new one
     query = f"SELECT COUNT(*) FROM crushes WHERE self_info = '{user_info}'"
-    crush_list = cursor.execute(query)
+    cursor.execute(query)
     crush_number = cursor.fetchone()[0]
-    print(f"YOU LIKE {crush_number} people")
     
-    if crush_number < 5:
+    # collect the list of crushes
+    query = f"SELECT crush_info FROM crushes WHERE self_info = '{user_info}'"
+    cursor.execute(query)
+    cursor_list = cursor.fetchall()
+    python_list_crushes = []
+    for sub_list in cursor_list:
+        python_list_crushes.append(sub_list[0])
+
+    # prevent adding if user has 5 or more crushes, or if crush is already in python_list_crushes
+    if (crush_number < 5) and (crush_info not in python_list_crushes):
         cursor.execute(f"INSERT INTO crushes VALUES ('{user_info}', '{crush_info}')")
+        python_list_crushes.append(crush_info)
     else:
         print("You already like 5 people. No more.")
 
+    # commit and close database
     connection.commit()
     connection.close()
+    print(f"after adding: {python_list_crushes}")
 
 
 def clear_data():
@@ -163,7 +172,6 @@ def clear_data():
     connection.commit()
     connection.close()
 
-clear_data()
 
 if __name__ == '__main__':
     app.run(debug=True)
