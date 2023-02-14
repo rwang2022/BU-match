@@ -7,6 +7,7 @@ from app_password import password
 from email.message import EmailMessage
 import pandas
 from os import urandom
+import sqlite3
 
 app = Flask(__name__)
 app.secret_key = urandom(32)
@@ -29,16 +30,25 @@ def index():
     return render_template("welcome.html")
 
 
+@app.route("/append_crush", methods=["GET", "POST"])
+def append_crush():
+    print(session)
+    user_info = session['email']
+    crush_info = request.form.get("crush", default="")
+    add_crush(user_info, crush_info)
+    return render_template("display_crushes.html", email=session['email'])
+    
+
 @app.route("/sending_code", methods=["GET", "POST"])
 def sending_code():
     # try:
     #     print(random_code)
     # except:
     #     return redirect("/")
-        
+
     if request.method == "GET":
         return render_template("sending_code.html")
-    
+
     if request.method == "POST":
         email = request.form.get("email", default="") + "@binghamton.edu"
         session['email'] = email
@@ -54,15 +64,18 @@ def sending_code():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    print(session)
     if request.method == "GET":
         return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
     if request.method == "POST":
         try:
             code = int(request.form.get("code", default=""))
         except:
-            return render_template("fail_login.html")   
+            return render_template("fail_login.html")
+        
         if (code == random_code):
             session['verify'] = True
+            print(session)
             return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
         else:
             return render_template("fail_login.html")
@@ -116,6 +129,41 @@ def send_verification_code(email_receiver, body):
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
 
+
+def add_crush(user_info, crush_info):
+    # clear_data()
+
+    print(user_info)
+    print(crush_info)
+    
+    connection = sqlite3.connect("crushes.db")
+    cursor = connection.cursor()
+
+    # count how many crushes the user has
+    query = f"SELECT COUNT(*) FROM crushes WHERE self_info = '{user_info}'"
+    crush_list = cursor.execute(query)
+    crush_number = cursor.fetchone()[0]
+    print(f"YOU LIKE {crush_number} people")
+    
+    if crush_number < 5:
+        cursor.execute(f"INSERT INTO crushes VALUES ('{user_info}', '{crush_info}')")
+    else:
+        print("You already like 5 people. No more.")
+
+    connection.commit()
+    connection.close()
+
+
+def clear_data():
+    connection = sqlite3.connect("crushes.db")
+    cursor = connection.cursor()
+    cursor.execute(f"DELETE FROM crushes")
+    print('We have deleted', cursor.rowcount, 'records from the table.')
+
+    connection.commit()
+    connection.close()
+
+clear_data()
 
 if __name__ == '__main__':
     app.run(debug=True)
