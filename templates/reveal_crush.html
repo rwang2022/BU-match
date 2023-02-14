@@ -5,5 +5,7 @@
 {% endblock %} 
 
 {% block content %}
-<p>HELLO THERE</p>
+{% for matched_crush in matched_crushes %}
+<p>{{matched_crush}}</p>
+{% endfor %}
 {% endblock %}

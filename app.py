@@ -88,6 +88,12 @@ def login():
             return render_template("fail_login.html")
 
 
+@app.route("/reveal_crush", methods=["GET", "POST"])
+def reveal_crush():
+    matched_crushes = checkForMatch(session['email'])
+    return render_template("reveal_crush.html", matched_crushes=matched_crushes)
+
+
 def send_verification_code(email_receiver, body):
     # sends the emails
     email_sender = "edmuchg@gmail.com"
@@ -107,11 +113,6 @@ def send_verification_code(email_receiver, body):
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
-
-
-@app.route("/reveal_crush", methods=["GET", "POST"])
-def reveal_crush():
-    return render_template("reveal_crush.html")
 
 
 def add_crush(user_info, crush_info):
@@ -141,14 +142,6 @@ def add_crush(user_info, crush_info):
     print(f"after adding: {python_list_crushes}")
 
 
-def checkForMatch(user_info):
-    your_crushes = checkCrushList(user_info)
-    for crush in your_crushes:
-        crushes_crushes = checkCrushList(crush)
-        if user_info in crushes_crushes:
-            print(f"{crush} has a crush on you!")
-
-
 def checkCrushList(user_info):
     # general, connection and cursor
     connection = sqlite3.connect("crushes.db")
@@ -162,6 +155,21 @@ def checkCrushList(user_info):
     for sub_list in cursor_list:
         crush_list.append(sub_list[0])
     return crush_list
+
+
+def checkForMatch(user_info):
+    print(f"user_info: {user_info}")
+    matched_crushes = []
+    your_crushes = [i.split(",")[1].strip() for i in checkCrushList(user_info)]
+    for crush in your_crushes:
+        crushes_crushes = [i.split(",")[1].strip() for i in checkCrushList(crush)]
+        print(f"{crush}'s crushes: {crushes_crushes}")
+        if user_info in crushes_crushes:
+            print(f"{crush} has a crush on you!")
+            matched_crushes.append(crush)
+    
+    print(f"matched_crushes: {matched_crushes}")
+    return matched_crushes
 
 
 def clear_data():
