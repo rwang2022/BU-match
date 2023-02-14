@@ -43,11 +43,11 @@ def append_crush():
     print(session)
     user_info = session['email']
     crush_info = request.form.get("crush", default="")
-    add_crush(user_info, crush_info)
+    error = add_crush(user_info, crush_info)
     crush_list = checkCrushList(session['email'])
     print("line42")
     print(crush_list)
-    return render_template("display_crushes.html", email=session['email'], crush_list=crush_list)
+    return render_template("display_crushes.html", email=session['email'], crush_list=crush_list, error=error)
 
 
 @app.route("/sending_code", methods=["GET", "POST"])
@@ -138,16 +138,19 @@ def add_crush(user_info, crush_info):
 
     # add new crush to list
     # prevent adding if user has 5 or more crushes, or if crush is already in python_list_crushes
+    error = ""
     if (crush_number < 5) and (crush_info not in python_list_crushes):
         cursor.execute(f"INSERT INTO crushes VALUES ('{user_info}', '{crush_info}')")
         python_list_crushes.append(crush_info)
     else:
+        error = "either too many crushes (>5) or you already crush this person"
         print("Either you already like this person, or you already like 5 people.")
 
     # commit and close database
     connection.commit()
     connection.close()
     print(f"after adding: {python_list_crushes}")
+    return error
 
 
 def checkCrushList(user_info):
@@ -184,10 +187,13 @@ def clear_data():
     connection = sqlite3.connect("crushes.db")
     cursor = connection.cursor()
     cursor.execute(f"DELETE FROM crushes")
-    print('We have deleted', cursor.rowcount, 'records from the table.')
+    # print('We have deleted', cursor.rowcount, 'records from the table.')
 
     connection.commit()
     connection.close()
+
+
+# clear_data()
 
 
 if __name__ == '__main__':
