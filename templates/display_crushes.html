@@ -15,9 +15,12 @@ head%} {{ super() }}
   <tbody style="font-size: medium">
     {% for crush in crush_list %}
     <tr>
-      <td>{{crush}}</td>
+      <td>
+          <label>{{crush}}</label>
+      </td>
       <td>
         <form action="/reveal_crush" method="post">
+          <input type="hidden" name="crush_reveal" value="{{ crush }}" />
           <button formaction="/reveal_crush">REVEAL</button>
         </form>
       </td>

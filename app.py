@@ -91,7 +91,11 @@ def login():
 @app.route("/reveal_crush", methods=["GET", "POST"])
 def reveal_crush():
     matched_crushes = checkForMatch(session['email'])
-    return render_template("reveal_crush.html", matched_crushes=matched_crushes)
+    button_crush = request.form.get("crush_reveal").split(", ")[1]
+    print(f"button_crush: {button_crush}")
+    if button_crush in matched_crushes:
+        return render_template("reveal_crush.html", matched_crushes=matched_crushes)
+    return "<p>L no rizz</p>"
 
 
 def send_verification_code(email_receiver, body):
