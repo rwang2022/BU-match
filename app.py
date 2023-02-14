@@ -26,7 +26,9 @@ for i in range(len(students_alums)):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if session.get('verify') == True:
-        return render_template("display_crushes.html", email=session['email'])
+        crush_list = checkCrushList(session['email'])
+        print(crush_list)
+        return render_template("display_crushes.html", email=session['email'], crush_list=crush_list)
     return render_template("welcome.html")
 
 
@@ -36,7 +38,10 @@ def append_crush():
     user_info = session['email']
     crush_info = request.form.get("crush", default="")
     add_crush(user_info, crush_info)
-    return render_template("display_crushes.html", email=session['email'])
+    crush_list = checkCrushList(session['email'])
+    print("line42")
+    print(crush_list)
+    return render_template("display_crushes.html", email=session['email'], crush_list=crush_list)
     
 
 @app.route("/sending_code", methods=["GET", "POST"])
@@ -83,34 +88,6 @@ def login():
             return render_template("fail_login.html")
 
 
-@app.route("/acknowledge", methods=["GET", "POST"])
-def acknowledge():
-    crush = request.form.get("crush", default="")
-
-    waiting = [
-        ["Nigemichi: Nashi", "_zy0sp7iZ1I"],
-        ["bluff", "CemKsp95OY4"]
-    ]
-    no_match = [
-        ["Shippai", "jTl8soYvElo"],
-        ["Souiu natsu", "udkxHDhESBI"],
-        ["Owatta", "uJ6BOG-IHN4"]
-    ]
-    match = [
-        ["Yamato nadeshiko", "FGibulARiZQ"],
-        ["Shiritsu Shuuchiin Gakuen", "Na05DCSgg2E"],
-        ["Here's your chance!", "z4wzGSgczKY"]
-    ]
-
-    i = 0
-    # music_url = "https://www.youtube.com/embed/" + waiting[i][1] + "?autoplay=1"
-    # music_url = "https://www.youtube.com/embed/" + no_match[i][1] + "?autoplay=1"
-    music_url = "https://www.youtube.com/embed/" + match[i][1] + "?autoplay=1"
-
-    print(music_url)
-    return render_template("acknowledge.html", crush=crush, music_url=music_url)
-
-
 def send_verification_code(email_receiver, body):
     # sends the emails
     email_sender = "edmuchg@gmail.com"
@@ -151,7 +128,7 @@ def add_crush(user_info, crush_info):
         cursor.execute(f"INSERT INTO crushes VALUES ('{user_info}', '{crush_info}')")
         python_list_crushes.append(crush_info)
     else:
-        print("You already like 5 people. No more.")
+        print("Either you already like this person, or you already like 5 people.")
 
     # commit and close database
     connection.commit()
@@ -194,3 +171,32 @@ def clear_data():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+# # REST IN COMMENTS
+# @app.route("/acknowledge", methods=["GET", "POST"])
+# def acknowledge():
+#     crush = request.form.get("crush", default="")
+
+#     waiting = [
+#         ["Nigemichi: Nashi", "_zy0sp7iZ1I"],
+#         ["bluff", "CemKsp95OY4"]
+#     ]
+#     no_match = [
+#         ["Shippai", "jTl8soYvElo"],
+#         ["Souiu natsu", "udkxHDhESBI"],
+#         ["Owatta", "uJ6BOG-IHN4"]
+#     ]
+#     match = [
+#         ["Yamato nadeshiko", "FGibulARiZQ"],
+#         ["Shiritsu Shuuchiin Gakuen", "Na05DCSgg2E"],
+#         ["Here's your chance!", "z4wzGSgczKY"]
+#     ]
+
+#     i = 0
+#     # music_url = "https://www.youtube.com/embed/" + waiting[i][1] + "?autoplay=1"
+#     # music_url = "https://www.youtube.com/embed/" + no_match[i][1] + "?autoplay=1"
+#     music_url = "https://www.youtube.com/embed/" + match[i][1] + "?autoplay=1"
+
+#     print(music_url)
+#     return render_template("acknowledge.html", crush=crush, music_url=music_url)

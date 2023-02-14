@@ -1,9 +1,11 @@
-{% extends "base.html" %} {% block title %}Welcome!{% endblock %} {% block head
-%} {{ super() }}
+{% extends "base.html" %} {% block title %}Welcome!{% endblock %} 
+{% block head%} 
+{{ super() }}
 <style type="text/css"></style>
-{% endblock %} {% block content %}
-<h1>Good luck, {{email}}!</h1>
+{% endblock %} 
 
+{% block content %}
+<h1>Good luck, {{email}}!</h1>
 <h1>Status on your crushes</h1>
 <table>
   <thead>
@@ -14,26 +16,12 @@
   </thead>
 
   <tbody style="font-size: medium">
+    {% for crush in crush_list %}
     <tr>
       <td>{{crush}}</td>
       <td><button>REVEAL</button></td>
     </tr>
-    <tr>
-      <td>{{crush}}</td>
-      <td><button>REVEAL</button></td>
-    </tr>
-    <tr>
-      <td>{{crush}}</td>
-      <td><button>REVEAL</button></td>
-    </tr>
-    <tr>
-      <td>{{crush}}</td>
-      <td><button>REVEAL</button></td>
-    </tr>
-    <tr>
-      <td>{{crush}}</td>
-      <td><button>REVEAL</button></td>
-    </tr>
+    {% endfor %}
   </tbody>
 </table>
 {% endblock %}
