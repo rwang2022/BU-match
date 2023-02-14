@@ -5,14 +5,15 @@
     <title>{% block title %}{% endblock %} - BU-match</title>
     <link rel="stylesheet" href="../static/CSS/styles.css" />
     <!-- <link rel="shortcut icon" type="image/x-icon" href="favicon1.ico" /> -->
-    <link rel="shortcut icon" href="../static/CSS/favicon.ico">
+    <link rel="shortcut icon" href="../static/CSS/favicon.ico" />
     {% endblock %}
   </head>
   <body>
     <div class="topnav">
       <a class="active" href="/">Home</a>
       <a href="/">Display Crushes</a>
-      <a href="/login">Add Crush</a>
+      <a href="/login" method="POST">Add Crush</a>
+      <a href="/logout" method="POST">Log Out</a>
       <!-- <a href="/">Home</a> -->
       <!-- <a href="/">Home</a> -->
     </div>

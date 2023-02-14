@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for
 import random
 import smtplib
 import ssl
@@ -32,6 +32,12 @@ def index():
     return render_template("welcome.html")
 
 
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.clear()  # or session.pop('key', None) for specific keys
+    return redirect(url_for('index'))
+
+
 @app.route("/append_crush", methods=["GET", "POST"])
 def append_crush():
     print(session)
@@ -42,15 +48,10 @@ def append_crush():
     print("line42")
     print(crush_list)
     return render_template("display_crushes.html", email=session['email'], crush_list=crush_list)
-    
+
 
 @app.route("/sending_code", methods=["GET", "POST"])
 def sending_code():
-    # try:
-    #     print(random_code)
-    # except:
-    #     return redirect("/")
-
     if request.method == "GET":
         return render_template("sending_code.html")
 
@@ -69,23 +70,26 @@ def sending_code():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "GET":
-        print("line 68")
-        print(session)
-        # return render_template("fail_login.html")
-        return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
     if request.method == "POST":
         try:
             code = int(request.form.get("code", default=""))
         except:
             return render_template("fail_login.html")
-        
+
         if (code == random_code):
             session['verify'] = True
             print(session)
             return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
         else:
             return render_template("fail_login.html")
+    if request.method == "GET":
+        if session.get('verify') is None:
+            print("line80")
+            return redirect(url_for('index'))
+        print("line 68")
+        print(session)
+        # return render_template("fail_login.html")
+        return render_template("add_crush.html", email=session['email'], students_alums=students_alums)
 
 
 @app.route("/reveal_crush", methods=["GET", "POST"])
@@ -162,17 +166,17 @@ def checkCrushList(user_info):
 
 
 def checkForMatch(user_info):
-    print(f"user_info: {user_info}")
+    # print(f"user_info: {user_info}")
     matched_crushes = []
     your_crushes = [i.split(",")[1].strip() for i in checkCrushList(user_info)]
     for crush in your_crushes:
         crushes_crushes = [i.split(",")[1].strip() for i in checkCrushList(crush)]
-        print(f"{crush}'s crushes: {crushes_crushes}")
+        # print(f"{crush}'s crushes: {crushes_crushes}")
         if user_info in crushes_crushes:
-            print(f"{crush} has a crush on you!")
+            # print(f"{crush} has a crush on you!")
             matched_crushes.append(crush)
     
-    print(f"matched_crushes: {matched_crushes}")
+    # print(f"matched_crushes: {matched_crushes}")
     return matched_crushes
 
 
