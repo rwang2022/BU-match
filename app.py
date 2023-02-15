@@ -232,9 +232,6 @@ def clear_data():
     connection.close()
 
 
-clear_data()
-
-
 if __name__ == '__main__':
     app.run(debug=True)
 
