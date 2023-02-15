@@ -21,18 +21,18 @@ head%} {{ super() }}
         <label>{{crush}}</label>
       </td>
       <td>
-        <form action="/dev/reveal_crush" method="post">
+        <form action="/reveal_crush" method="post">
           <input type="hidden" name="crush_reveal" value="{{ crush }}" />
           <button>REVEAL</button>
-          <!-- <button formaction="/dev/reveal_crush">REVEAL</button> -->
+          <button formaction="/reveal_crush">REVEAL</button>
         </form>
       </td>
       <td>
-        <!-- <form action="/dev/delete_crush" method="post"> -->
-          <!-- <input type="hidden" name="crush_delete" value="{{ crush }}" /> -->
+        <form action="/delete_crush" method="post">
+          <input type="hidden" name="crush_delete" value="{{ crush }}" />
           <button>Out of Order</button>
-          <!-- <button formaction="/dev/delete_crush">DELETE</button> -->
-        <!-- </form> -->
+          <button formaction="/delete_crush">DELETE</button>
+        </form>
       </td>
     </tr>
     {% endfor %}

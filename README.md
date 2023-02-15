@@ -51,10 +51,5 @@ $ source env/bin/activate
 (env) $ deactivate
 ```
 
-## NOTE TO SELF
-```
-When deploying, you must have action="/dev/sending_code" (in general, not specifically for sending_code)
-The dev/ is crucial because dev is the name of the stage and is part of the URL
-```
 You'll be able to access the web app at http://127.0.0.1/5000/
 
