@@ -6,10 +6,10 @@ head%} {{ super() }}
 {% block content %} 
 
 <p>You are a match with {{matched_crush}}!</p>
-<form action="/notify_both" method="POST">
+<!-- <form action="/notify_both" method="POST">
   <input type="hidden" name="crush_reveal" value="{{ matched_crush }}" />
   <button formaction="/notify_both" style="min-height: auto; min-width: 400px;">Notify {{ matched_crush }}</button>
   <p style="font-size: medium;">You'll also get a confirmation email.</p>
-</form>
+</form> -->
 
 {% endblock %}

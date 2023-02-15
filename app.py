@@ -102,14 +102,17 @@ def reveal_crush():
     button_crush = request.form.get("crush_reveal").split(", ")[1]
     print(f"button_crush: {button_crush}")
     if button_crush in matched_crushes:
+        print(button_crush)
+        print(session['email'])
+        notify_both(button_crush)
         return render_template("reveal_crush.html", matched_crush=button_crush)
     return "<p>L no rizz</p>"
 
 
 @app.route("/notify_both", methods=["GET", "POST"])
-def notify_both():
+def notify_both(crush_email):
     email = session['email']
-    crush_email = request.form['crush_reveal']
+    # crush_email = request.form['crush_reveal']
 
     subject = "Match found!"
     body = "You have matched! Check the BU-match website."
