@@ -147,7 +147,7 @@ def delete_crush():
 
 def deleteCrush(user_info, crush_info):
     # general, connection and cursor
-    connection = sqlite3.connect("./dev/crushes.db")
+    connection = sqlite3.connect("dev/crushes.db")
     cursor = connection.cursor()
 
     # collect the list of crushes
@@ -162,7 +162,7 @@ def deleteCrush(user_info, crush_info):
 
 def add_crush(user_info, crush_info):
     # general, connection and cursor
-    connection = sqlite3.connect("./dev/crushes.db")
+    connection = sqlite3.connect("dev/crushes.db")
     cursor = connection.cursor()
 
     # count how many crushes the user currently has, before adding a new one
@@ -196,7 +196,7 @@ def add_crush(user_info, crush_info):
 
 def checkCrushList(user_info):
     # general, connection and cursor
-    connection = sqlite3.connect("./dev/crushes.db")
+    connection = sqlite3.connect("dev/crushes.db")
     cursor = connection.cursor()
 
     # collect the list of crushes
@@ -225,7 +225,7 @@ def checkForMatch(user_info):
 
 
 def clear_data():
-    connection = sqlite3.connect("./dev/crushes.db")
+    connection = sqlite3.connect("dev/crushes.db")
     cursor = connection.cursor()
     cursor.execute(f"DELETE FROM crushes")
     connection.commit()
