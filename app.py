@@ -26,10 +26,14 @@ for i in range(len(students_alums)):
 @app.route("/", methods=["GET", "POST"])
 def index():
     error = request.args.get('error')
+    print(f"error: {error}")
     if session.get('verify') == True:
         crush_list = checkCrushList(session['email'])
         print(crush_list)
-        return render_template("display_crushes.html", email=session['email'], crush_list=crush_list, error=error)
+        if error is not None and error != "":
+            return render_template("display_crushes.html", email=session['email'], crush_list=crush_list, error=error)
+        else:
+            return render_template("display_crushes.html", email=session['email'], crush_list=crush_list)
     return render_template("welcome.html")
 
 
