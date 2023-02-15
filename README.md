@@ -6,7 +6,7 @@ Select up to 5 students/alumni that you like.
 If they select you too, you'll both be notified via B-mail after some time.
 Until there is a match, you'll see a "no match found" message.
 ```
-Interested? Visit \<Deployed Website\>
+Interested? Visit https://bu-match-ocean-app-tysmh.ondigitalocean.app/
 
 ## Collaborators:
 
