@@ -3,10 +3,7 @@ import random
 import smtplib
 import ssl
 import smtplib
-# importing my own data functions
 from app_password import password
-from data_functions import *
-
 from email.message import EmailMessage
 import pandas
 from os import urandom
@@ -70,9 +67,7 @@ def sending_code():
         global random_code
         random_code = random.randint(1_000_000, 9_999_999)
         print(f"random code: {random_code}")
-
-        send_email(subject="BU-match verify",
-                   email_receiver=email, body=str(random_code))
+        send_email(subject="BU-match verify", email_receiver=email, body=str(random_code))
 
         return render_template("sending_code.html", email=email)
 
@@ -124,7 +119,7 @@ def notify_both(crush_email):
     send_email(subject, email, str(body))
     send_email(subject, crush_email, body)
 
-    error = f"Email to {crush_email} has been sent"
+    error=f"Email to {crush_email} has been sent"
     return redirect(url_for('index', error=error))
 
 
@@ -157,20 +152,91 @@ def delete_crush():
     return redirect(url_for('index', error=""))
 
 
+def deleteCrush(user_info, crush_info):
+    # general, connection and cursor
+    connection = sqlite3.connect("crushes.db")
+    cursor = connection.cursor()
+
+    # collect the list of crushes
+    query = "DELETE FROM crushes WHERE self_info = ? AND crush_info = ?"
+    cursor.execute(query, (user_info, crush_info))
+
+    # commit and close
+    connection.commit()
+    connection.close()
+
+
+
+def add_crush(user_info, crush_info):
+    # general, connection and cursor
+    connection = sqlite3.connect("crushes.db")
+    cursor = connection.cursor()
+
+    # count how many crushes the user currently has, before adding a new one
+    query = f"SELECT COUNT(*) FROM crushes WHERE self_info = '{user_info}'"
+    cursor.execute(query)
+    crush_number = cursor.fetchone()[0]
+    
+    # collect the list of crushes
+    python_list_crushes = checkCrushList(user_info=user_info)
+
+    # add new crush to list
+    # prevent adding if user has 5 or more crushes, or if crush is already in python_list_crushes
+    error = ""
+    if (crush_number < 5) and (crush_info not in python_list_crushes):
+        cursor.execute(f"INSERT INTO crushes VALUES ('{user_info}', '{crush_info}')")
+        python_list_crushes.append(crush_info)
+    elif crush_number >= 5:
+        error = "Error: You already have 5 crushes"
+    elif (crush_info in python_list_crushes):
+        error = f"Error: You already like {crush_info}"
+    else:
+        error = "Error: Bad."
+
+
+    # commit and close database
+    connection.commit()
+    connection.close()
+    print(f"after adding: {python_list_crushes}")
+    return error
+
+
+def checkCrushList(user_info):
+    # general, connection and cursor
+    connection = sqlite3.connect("crushes.db")
+    cursor = connection.cursor()
+
+    # collect the list of crushes
+    query = f"SELECT crush_info FROM crushes WHERE self_info = '{user_info}'"
+    cursor.execute(query)
+    cursor_list = cursor.fetchall()
+    crush_list = []
+    for sub_list in cursor_list:
+        crush_list.append(sub_list[0])
+    return crush_list
+
+
 def checkForMatch(user_info):
     # print(f"user_info: {user_info}")
     matched_crushes = []
     your_crushes = [i.split(",")[1].strip() for i in checkCrushList(user_info)]
     for crush in your_crushes:
-        crushes_crushes = [i.split(",")[1].strip()
-                           for i in checkCrushList(crush)]
+        crushes_crushes = [i.split(",")[1].strip() for i in checkCrushList(crush)]
         # print(f"{crush}'s crushes: {crushes_crushes}")
         if user_info in crushes_crushes:
             # print(f"{crush} has a crush on you!")
             matched_crushes.append(crush)
-
+    
     # print(f"matched_crushes: {matched_crushes}")
     return matched_crushes
+
+
+def clear_data():
+    connection = sqlite3.connect("crushes.db")
+    cursor = connection.cursor()
+    cursor.execute(f"DELETE FROM crushes")
+    connection.commit()
+    connection.close()
 
 
 if __name__ == '__main__':
